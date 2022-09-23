@@ -4,9 +4,10 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	"github.com/Mikaelemmmm/sql2pb/core"
 	"log"
 	"strings"
+
+	"github.com/Mikaelemmmm/sql2pb/core"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -26,7 +27,7 @@ func main() {
 
 	flag.Parse()
 
-	if *schema == ""{
+	if *schema == "" {
 		fmt.Println(" - please input the database schema ")
 		return
 	}
@@ -41,7 +42,7 @@ func main() {
 
 	ignoreTables := strings.Split(*ignoreTableStr, ",")
 
-	s, err := core.GenerateSchema(db, *table,ignoreTables,*serviceName, *goPackageName, *packageName )
+	s, err := core.GenerateSchema(db, *table, ignoreTables, *serviceName, *goPackageName, *packageName)
 
 	if nil != err {
 		log.Fatal(err)
