@@ -528,6 +528,9 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 		{Typ: "int64", Name: "page", tag: 1, Comment: "第几页"},
 		{Typ: "int64", Name: "pageSize", tag: 2, Comment: "每页多少条"},
 		{Typ: "string", Name: "keyWord", tag: 3, Comment: "查询关键词"},
+		{Typ: "string", Name: "orderField", tag: 4, Comment: "排序字段"},
+		{Typ: "string", Name: "orderParam", tag: 5, Comment: "排序方法"},
+		{Typ: "int64", Name: "showSub", tag: 6, Comment: "是否显示关联信息"},
 	}
 	var filedTag = len(curFields)
 	for _, field := range m.Fields {
