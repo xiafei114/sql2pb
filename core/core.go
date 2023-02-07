@@ -231,8 +231,8 @@ func (s *Schema) String() string {
 		m.GenDefaultMessage(buf)
 		m.GenRpcAddReqRespMessage(buf)
 		m.GenRpcUpdateReqMessage(buf)
-		m.GenRpcDelReqMessage(buf)
-		m.GenRpcGetByIdReqMessage(buf)
+		// m.GenRpcDelReqMessage(buf)
+		// m.GenRpcGetByIdReqMessage(buf)
 		m.GenRpcSearchReqMessage(buf)
 	}
 
@@ -258,8 +258,10 @@ func (s *Schema) String() string {
 		funcTpl += "\t //-----------------------" + m.Comment + "----------------------- \n"
 		funcTpl += "\t rpc Add" + m.Name + "(Add" + m.Name + "Req) returns (CommonStatusResp); \n"
 		funcTpl += "\t rpc Update" + m.Name + "(Update" + m.Name + "Req) returns (CommonStatusResp); \n"
-		funcTpl += "\t rpc Del" + m.Name + "(Del" + m.Name + "Req) returns (CommonStatusResp); \n"
-		funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdResp); \n"
+		funcTpl += "\t rpc Del" + m.Name + "(CommonIdReq) returns (CommonStatusResp); \n"
+		funcTpl += "\t rpc Get" + m.Name + "ById(CommonIdReq) returns (Get" + m.Name + "ByIdResp); \n"
+		// funcTpl += "\t rpc Del" + m.Name + "(Del" + m.Name + "Req) returns (CommonStatusResp); \n"
+		// funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdResp); \n"
 		funcTpl += "\t rpc Search" + m.Name + "(Search" + m.Name + "Req) returns (Search" + m.Name + "Resp); \n"
 	}
 	funcTpl = funcTpl + "\n}"
