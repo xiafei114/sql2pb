@@ -232,7 +232,7 @@ func (s *Schema) String() string {
 		m.GenRpcAddReqRespMessage(buf)
 		m.GenRpcUpdateReqMessage(buf)
 		// m.GenRpcDelReqMessage(buf)
-		// m.GenRpcGetByIdReqMessage(buf)
+		m.GenRpcGetByIdReqMessage(buf)
 		m.GenRpcSearchReqMessage(buf)
 	}
 
@@ -497,15 +497,15 @@ func (m Message) GenRpcGetByIdReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Get" + mOrginName + "ByIdReq"
-	m.Fields = []MessageField{
-		{Name: "id", Typ: "int64", tag: 1, Comment: "id"},
-	}
-	buf.WriteString(fmt.Sprintf("%s\n", m))
+	// m.Name = "Get" + mOrginName + "ByIdReq"
+	// m.Fields = []MessageField{
+	// 	{Name: "id", Typ: "int64", tag: 1, Comment: "id"},
+	// }
+	// buf.WriteString(fmt.Sprintf("%s\n", m))
 
-	//reset
-	m.Name = mOrginName
-	m.Fields = mOrginFields
+	// //reset
+	// m.Name = mOrginName
+	// m.Fields = mOrginFields
 
 	//resp
 	firstWord := strings.ToLower(string(m.Name[0]))
