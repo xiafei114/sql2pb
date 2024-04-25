@@ -229,8 +229,8 @@ func (s *Schema) String() string {
 		buf.WriteString("//--------------------------------" + m.Comment + "--------------------------------")
 		buf.WriteString("\n")
 		m.GenDefaultMessage(buf)
-		m.GenRpcAddReqRespMessage(buf)
-		m.GenRpcUpdateReqMessage(buf)
+		// m.GenRpcAddReqRespMessage(buf)
+		// m.GenRpcUpdateReqMessage(buf)
 		// m.GenRpcDelReqMessage(buf)
 		m.GenRpcGetByIdReqMessage(buf)
 		m.GenRpcSearchReqMessage(buf)
@@ -256,13 +256,13 @@ func (s *Schema) String() string {
 	funcTpl := "service " + s.ServiceName + "{ \n\n"
 	for _, m := range s.Messages {
 		funcTpl += "\t //-----------------------" + m.Comment + "----------------------- \n"
-		funcTpl += "\t rpc Add" + m.Name + "(Add" + m.Name + "Req) returns (CommonStatusResp); \n"
-		funcTpl += "\t rpc Update" + m.Name + "(Update" + m.Name + "Req) returns (CommonStatusResp); \n"
+		funcTpl += "\t rpc Add" + m.Name + "(" + m.Name + ") returns (CommonStatusResp); \n"
+		funcTpl += "\t rpc Update" + m.Name + "(" + m.Name + ") returns (CommonStatusResp); \n"
 		funcTpl += "\t rpc Del" + m.Name + "(CommonIdReq) returns (CommonStatusResp); \n"
 		funcTpl += "\t rpc Get" + m.Name + "ById(CommonIdReq) returns (Get" + m.Name + "ByIdResp); \n"
 		// funcTpl += "\t rpc Del" + m.Name + "(Del" + m.Name + "Req) returns (CommonStatusResp); \n"
 		// funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdResp); \n"
-		funcTpl += "\t rpc Search" + m.Name + "(Search" + m.Name + "Req) returns (Search" + m.Name + "Resp); \n"
+		funcTpl += "\t rpc Search" + m.Name + "(SearchCommonReq) returns (Search" + m.Name + "Resp); \n"
 	}
 	funcTpl = funcTpl + "\n}"
 	buf.WriteString(funcTpl)
@@ -525,30 +525,30 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Search" + mOrginName + "Req"
-	curFields := []MessageField{
-		{Typ: "int64", Name: "pageNo", tag: 1, Comment: "第几页"},
-		{Typ: "int64", Name: "pageSize", tag: 2, Comment: "每页多少条"},
-		{Typ: "string", Name: "keyWord", tag: 3, Comment: "查询关键词"},
-		{Typ: "string", Name: "orderField", tag: 4, Comment: "排序字段"},
-		{Typ: "string", Name: "orderParam", tag: 5, Comment: "排序方法"},
-		{Typ: "int64", Name: "showSub", tag: 6, Comment: "是否显示关联信息"},
-	}
-	var filedTag = len(curFields)
-	for _, field := range m.Fields {
-		if isInSlice([]string{"version", "del_state", "delete_time"}, field.Name) {
-			continue
-		}
-		filedTag++
-		field.tag = filedTag
-		field.Name = stringx.From(field.Name).ToCamelWithStartLower()
-		if field.Comment == "" {
-			field.Comment = field.Name
-		}
-		curFields = append(curFields, field)
-	}
-	m.Fields = curFields
-	buf.WriteString(fmt.Sprintf("%s\n", m))
+	// m.Name = "Search" + mOrginName + "Req"
+	// curFields := []MessageField{
+	// 	{Typ: "int64", Name: "pageNo", tag: 1, Comment: "第几页"},
+	// 	{Typ: "int64", Name: "pageSize", tag: 2, Comment: "每页多少条"},
+	// 	{Typ: "string", Name: "keyWord", tag: 3, Comment: "查询关键词"},
+	// 	{Typ: "string", Name: "orderField", tag: 4, Comment: "排序字段"},
+	// 	{Typ: "string", Name: "orderParam", tag: 5, Comment: "排序方法"},
+	// 	{Typ: "int64", Name: "showSub", tag: 6, Comment: "是否显示关联信息"},
+	// }
+	// var filedTag = len(curFields)
+	// for _, field := range m.Fields {
+	// 	if isInSlice([]string{"version", "del_state", "delete_time"}, field.Name) {
+	// 		continue
+	// 	}
+	// 	filedTag++
+	// 	field.tag = filedTag
+	// 	field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+	// 	if field.Comment == "" {
+	// 		field.Comment = field.Name
+	// 	}
+	// 	curFields = append(curFields, field)
+	// }
+	// m.Fields = curFields
+	// buf.WriteString(fmt.Sprintf("%s\n", m))
 
 	//reset
 	m.Name = mOrginName

@@ -1,0 +1,1 @@
+go build -o sql2pb.exe sql2pb.go
